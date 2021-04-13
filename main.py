@@ -9,22 +9,18 @@ def scale(a,u):
     return [a*v for v in u]
 
 def subtract(u,v):
-    u_p = []
-    for i in range(len(v)):
-        u_p.append(u[i]-v[i])
-    return u_p
+    return [u[i]-v[i] for i in range(len(u))]
 
 def round_vector(u,p):
     return [round(v,p) for v in u]
 
 def linearlyDependant(V):
-    l = len(V)
-    for i in range(l):
+    r = range(len(V))
+    for i in r:
         length = innerProduct(V[i],V[i])
-        for j in range(l):
+        for j in r:
             if i!=j and innerProduct(V[i],V[j]) == length and innerProduct(V[j],V[j]) == length:
                 return True
-        
     return False
 
 def Gram_Schmidt(V):
@@ -40,11 +36,12 @@ def Gram_Schmidt(V):
             e_p.append(e_ip)
     return e_p
 
+def loadtxt(path):
+    file = open(path, mode='r', encoding='utf-8')
+    return [[int(n) for n in line.split()] for line in file]
+
 def main():
-    v1 = [1,1,1,1]
-    v2 = [0,1,1,1]
-    v3 = [0,0,1,1]
-    vectors  = [v1,v2,v3]
+    vectors = loadtxt("vectors.txt")
     if linearlyDependant(vectors):
         print("The vectors are linearly dependant")
         return
